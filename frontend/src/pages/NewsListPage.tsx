@@ -32,17 +32,36 @@ export function NewsListPage() {
   return (
     <>
       <section className="mx-auto grid w-[calc(100%_-_40px)] max-w-[1180px] grid-cols-[minmax(0,1fr)_320px] items-stretch gap-8 py-14 max-lg:grid-cols-1 max-md:w-[calc(100%_-_28px)] max-md:py-8">
-        <div className="self-center">
-          <p className="mb-3 text-sm font-black uppercase text-[#266f66]">Kelompok 2</p>
+        <div className="self-center animate-fade-in">
+          <p className="mb-3 text-sm font-black uppercase tracking-wider text-[#266f66]">Kelompok 2</p>
           <h1 className="max-w-4xl text-[clamp(42px,6vw,78px)] font-black leading-[0.96] text-[#162126] max-md:text-[42px] max-sm:text-4xl">
             Kabar Now!
           </h1>
           <p className="mt-6 max-w-2xl text-xl leading-8 text-[#5f6d72] max-sm:text-lg">
             Kabar Now menghadirkan berita cepat, ringkas, dan terpercaya dalam satu platform. Dapatkan update terbaru dari berbagai topik penting, kapan saja dan di mana saja.
           </p>
+          <div className="mt-8 flex gap-4 max-sm:flex-col">
+            <a 
+              href="#filters" 
+              className="inline-flex items-center justify-center rounded-lg bg-[#266f66] px-6 py-3 font-black text-white shadow-lg transition hover:bg-[#174e48] hover:shadow-xl hover:-translate-y-0.5"
+            >
+              Mulai Cari Berita
+            </a>
+            <a 
+              href="#latest" 
+              className="inline-flex items-center justify-center rounded-lg border-2 border-[#266f66] px-6 py-3 font-black text-[#266f66] transition hover:bg-[#266f66] hover:text-white"
+            >
+              Lihat Berita Terbaru
+            </a>
+          </div>
         </div>
-
-  
+        <div className="self-center max-lg:hidden">
+          <img 
+            src="/src/assets/hero.png" 
+            alt="Hero illustration" 
+            className="w-full h-auto rounded-2xl shadow-2xl animate-float"
+          />
+        </div>
       </section>
 
       <NewsSearchForm
@@ -70,10 +89,25 @@ export function NewsListPage() {
         aria-live="polite"
         aria-busy={loadState === 'loading'}
       >
-        {visibleNews.length > 0 ? (
+        {loadState === 'loading' ? (
+          // Skeleton Loading
+          Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="animate-pulse rounded-xl border border-[#d8cec0] bg-white p-6">
+              <div className="flex justify-between mb-4">
+                <div className="h-6 w-20 bg-[#e5dccb] rounded-full"></div>
+                <div className="h-4 w-24 bg-[#e5dccb] rounded"></div>
+              </div>
+              <div className="h-8 bg-[#e5dccb] rounded mb-3 w-3/4"></div>
+              <div className="h-4 bg-[#e5dccb] rounded mb-2"></div>
+              <div className="h-4 bg-[#e5dccb] rounded mb-2 w-5/6"></div>
+              <div className="h-4 bg-[#e5dccb] rounded w-2/3"></div>
+            </div>
+          ))
+        ) : visibleNews.length > 0 ? (
           visibleNews.map((item) => <NewsCard item={item} key={item.id} />)
         ) : (
-          <div className="rounded-lg border border-dashed border-[#d8cec0] bg-white px-6 py-12 text-center">
+          <div className="rounded-xl border-2 border-dashed border-[#d8cec0] bg-white px-6 py-16 text-center">
+            <div className="text-6xl mb-4">🔍</div>
             <h3 className="mb-2 text-2xl font-black text-[#162126]">Tidak ada berita yang cocok.</h3>
             <p className="text-[#5f6d72]">Coba query lain atau kosongkan pencarian untuk melihat daftar berita.</p>
           </div>
