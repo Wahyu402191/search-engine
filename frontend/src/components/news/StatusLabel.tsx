@@ -11,11 +11,11 @@ export function StatusLabel({ loadState, activeQuery }: StatusLabelProps) {
   }
 
   if (loadState === 'ready' && activeQuery) {
-    return <>Hasil BM25 untuk "{activeQuery}"</>
+    return <>Hasil pencarian untuk "{activeQuery}"</>
   }
 
   if (loadState === 'ready') {
-    return <>Terhubung ke API berita</>
+    return <>Berita terupdate!</>
   }
 
   if (loadState === 'fallback') {

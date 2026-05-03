@@ -37,13 +37,12 @@ export function NewsListPage() {
     <>
       <section className="mx-auto grid w-[calc(100%_-_40px)] max-w-[1180px] grid-cols-[minmax(0,1fr)_320px] items-stretch gap-8 py-14 max-lg:grid-cols-1 max-md:w-[calc(100%_-_28px)] max-md:py-8">
         <div className="self-center">
-          <p className="mb-3 text-sm font-black uppercase text-[#266f66]">Kabar Hari Ini</p>
+          <p className="mb-3 text-sm font-black uppercase text-[#266f66]">Kelompok 2</p>
           <h1 className="max-w-4xl text-[clamp(42px,6vw,78px)] font-black leading-[0.96] text-[#162126] max-md:text-[42px] max-sm:text-4xl">
-            Berita terbaru, ringkas, dan gampang ditelusuri.
+            Kabar Now!
           </h1>
           <p className="mt-6 max-w-2xl text-xl leading-8 text-[#5f6d72] max-sm:text-lg">
-            Cari berita langsung ke endpoint BM25 backend, saring berdasarkan kategori, lalu buka
-            artikel penuh melalui alamat <span className="font-black text-[#174e48]">/news/&lt;id&gt;</span>.
+            Kabar Now menghadirkan berita cepat, ringkas, dan terpercaya dalam satu platform. Dapatkan update terbaru dari berbagai topik penting, kapan saja dan di mana saja.
           </p>
         </div>
 

@@ -28,7 +28,7 @@ export function NewsDetailPage({ id }: NewsDetailPageProps) {
         <div className="rounded-lg border border-dashed border-[#d8cec0] bg-white px-6 py-12">
           <h1 className="mb-3 text-4xl font-black leading-tight text-[#162126]">Berita tidak ditemukan.</h1>
           <p className="text-[#5f6d72]">
-            Artikel ini belum tersedia di respons API maupun data contoh lokal.
+            Artikel ini belum tersedia.
           </p>
         </div>
       </section>

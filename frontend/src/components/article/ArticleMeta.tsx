@@ -9,10 +9,7 @@ export function ArticleMeta({ article }: ArticleMetaProps) {
   return (
     <aside className="sticky top-5 rounded-lg border border-[#d8cec0] bg-[#efe7d9] p-6 max-lg:static max-lg:order-first">
       <dl className="grid gap-5">
-        <div className="border-b border-[#162126]/10 pb-4">
-          <dt className="mb-1 text-xs font-black uppercase text-[#89969a]">Kategori</dt>
-          <dd className="m-0 font-black text-[#162126]">{article.category}</dd>
-        </div>
+        
         <div className="border-b border-[#162126]/10 pb-4">
           <dt className="mb-1 text-xs font-black uppercase text-[#89969a]">Penulis</dt>
           <dd className="m-0 font-black text-[#162126]">{article.author}</dd>

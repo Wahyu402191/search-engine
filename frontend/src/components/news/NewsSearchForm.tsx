@@ -38,7 +38,7 @@ export function NewsSearchForm({
     >
       <div className="mx-auto grid max-w-[1180px] grid-cols-[minmax(220px,1fr)_minmax(180px,260px)_auto_auto] gap-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
         <label className="grid gap-2">
-          <span className="text-sm font-black text-[#5f6d72]">Query pencarian</span>
+          <span className="text-sm font-black text-[#5f6d72]">Cari Berita:</span>
           <input
             className="min-h-12 rounded-lg border border-[#d8cec0] bg-white px-4 text-[#162126] shadow-sm outline-none transition placeholder:text-[#89969a] focus:border-[#266f66] focus:ring-4 focus:ring-[#266f66]/15"
             type="search"
@@ -46,21 +46,6 @@ export function NewsSearchForm({
             onChange={(event) => onQueryDraftChange(event.target.value)}
             placeholder="Contoh: konflik Iran, ekonomi, teknologi"
           />
-        </label>
-
-        <label className="grid gap-2">
-          <span className="text-sm font-black text-[#5f6d72]">Kategori</span>
-          <select
-            className="min-h-12 rounded-lg border border-[#d8cec0] bg-white px-4 text-[#162126] shadow-sm outline-none transition focus:border-[#266f66] focus:ring-4 focus:ring-[#266f66]/15"
-            value={category}
-            onChange={(event) => onCategoryChange(event.target.value)}
-          >
-            {categories.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
         </label>
 
         <button
