@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { fallbackNews } from '../data/fallbackNews'
-import { fetchNewsPages, searchNews } from '../services/newsApi'
+import { fetchNewsPage, searchNews } from '../services/newsApi'
 import type { LoadState, NewsItem } from '../types/news'
 
-export function useNews(searchQuery: string) {
+export function useNews(searchQuery: string, page: number) {
   const [news, setNews] = useState<NewsItem[]>([])
   const [loadState, setLoadState] = useState<LoadState>('loading')
 
@@ -17,7 +17,7 @@ export function useNews(searchQuery: string) {
         const query = searchQuery.trim()
         const loadedItems = query
           ? await searchNews(query, controller.signal)
-          : await fetchNewsPages(controller.signal)
+          : await fetchNewsPage(page, controller.signal)
 
         if (loadedItems.length === 0) {
           setNews(query ? [] : fallbackNews)
@@ -41,7 +41,7 @@ export function useNews(searchQuery: string) {
     loadNews()
 
     return () => controller.abort()
-  }, [searchQuery])
+  }, [page, searchQuery])
 
   const categories = useMemo(
     () => ['Semua', ...Array.from(new Set(news.map((item) => item.category))).sort()],

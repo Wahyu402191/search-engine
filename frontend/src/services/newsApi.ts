@@ -1,5 +1,4 @@
-import { MAX_API_PAGES, PAGE_SIZE } from '../config/news'
-import type { ApiNewsItem, NewsItem } from '../types/news'
+import type { ApiNewsItem } from '../types/news'
 import { normalizeNewsItem } from '../utils/news'
 
 async function requestJson<T>(url: string, signal?: AbortSignal): Promise<T> {
@@ -12,23 +11,9 @@ async function requestJson<T>(url: string, signal?: AbortSignal): Promise<T> {
   return response.json() as Promise<T>
 }
 
-export async function fetchNewsPages(signal?: AbortSignal) {
-  const loadedItems: NewsItem[] = []
-
-  for (let page = 1; page <= MAX_API_PAGES; page += 1) {
-    const payload = await requestJson<ApiNewsItem[]>(`/api/v1/news?page=${page}`, signal)
-    const normalizedItems = payload.map((item, index) =>
-      normalizeNewsItem(item, loadedItems.length + index),
-    )
-
-    loadedItems.push(...normalizedItems)
-
-    if (payload.length < PAGE_SIZE) {
-      break
-    }
-  }
-
-  return loadedItems
+export async function fetchNewsPage(page: number, signal?: AbortSignal) {
+  const payload = await requestJson<ApiNewsItem[]>(`/api/v1/news?page=${page}`, signal)
+  return payload.map((item, index) => normalizeNewsItem(item, index))
 }
 
 export async function searchNews(query: string, signal?: AbortSignal) {

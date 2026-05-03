@@ -1,21 +1,15 @@
 import type { FormEvent } from 'react'
 
 type NewsSearchFormProps = {
-  categories: string[]
-  category: string
   queryDraft: string
   activeQuery: string
-  onCategoryChange: (category: string) => void
   onQueryDraftChange: (query: string) => void
   onSearch: (query: string) => void
 }
 
 export function NewsSearchForm({
-  categories,
-  category,
   queryDraft,
   activeQuery,
-  onCategoryChange,
   onQueryDraftChange,
   onSearch,
 }: NewsSearchFormProps) {

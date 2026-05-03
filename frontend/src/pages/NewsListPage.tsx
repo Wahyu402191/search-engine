@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { PAGE_SIZE } from '../config/news'
+import { PAGE_SIZE, TOTAL_DOCUMENT } from '../config/news'
 import { NewsCard } from '../components/news/NewsCard'
 import { NewsSearchForm } from '../components/news/NewsSearchForm'
 import { Pagination } from '../components/news/Pagination'
@@ -7,29 +7,25 @@ import { StatusLabel } from '../components/news/StatusLabel'
 import { useNews } from '../hooks/useNews'
 
 export function NewsListPage() {
-  const [category, setCategory] = useState('Semua')
   const [currentPage, setCurrentPage] = useState(1)
   const [queryDraft, setQueryDraft] = useState('')
   const [activeQuery, setActiveQuery] = useState('')
-  const { news, categories, loadState } = useNews(activeQuery)
+  const totalDocumentPages = Math.max(1, Math.ceil(TOTAL_DOCUMENT / PAGE_SIZE))
+  const { news, loadState } = useNews(activeQuery, currentPage)
 
   const filteredNews = useMemo(() => {
-    return news.filter((item) => category === 'Semua' || item.category === category)
-  }, [category, news])
+    return news
+  }, [news])
 
-  const totalPages = Math.max(1, Math.ceil(filteredNews.length / PAGE_SIZE))
+  const totalPages = activeQuery ? Math.max(1, Math.ceil(filteredNews.length / PAGE_SIZE)) : totalDocumentPages
   const safePage = Math.min(currentPage, totalPages)
   const pageStart = (safePage - 1) * PAGE_SIZE
-  const visibleNews = filteredNews.slice(pageStart, pageStart + PAGE_SIZE)
-
-  function handleCategoryChange(nextCategory: string) {
-    setCategory(nextCategory)
-    setCurrentPage(1)
-  }
+  const visibleNews = activeQuery ? filteredNews.slice(pageStart, pageStart + PAGE_SIZE) : filteredNews
+  const displayTotal = activeQuery ? news.length : TOTAL_DOCUMENT
+  const resultCount = activeQuery ? filteredNews.length : TOTAL_DOCUMENT
 
   function handleSearch(nextQuery: string) {
     setActiveQuery(nextQuery.trim())
-    setCategory('Semua')
     setCurrentPage(1)
   }
 
@@ -46,19 +42,12 @@ export function NewsListPage() {
           </p>
         </div>
 
-        <aside className="grid min-h-52 content-end gap-2 rounded-lg bg-[#162126] p-7 text-white max-lg:min-h-40">
-          <span className="text-sm font-black uppercase text-white">Total Berita</span>
-          <strong className="text-7xl leading-none text-[#f4b860]">{news.length}</strong>
-          <span className="text-white/75">{loadState === 'loading' ? 'Mengambil dari API' : 'Siap dibaca'}</span>
-        </aside>
+  
       </section>
 
       <NewsSearchForm
-        categories={categories}
-        category={category}
         queryDraft={queryDraft}
         activeQuery={activeQuery}
-        onCategoryChange={handleCategoryChange}
         onQueryDraftChange={setQueryDraft}
         onSearch={handleSearch}
       />
@@ -69,7 +58,7 @@ export function NewsListPage() {
       >
         <div>
           <p className="mb-3 text-sm font-black uppercase text-[#266f66]">Berita Terbaru</p>
-          <h2 className="text-3xl font-black text-[#162126]">{filteredNews.length} berita ditemukan</h2>
+          <h2 className="text-3xl font-black text-[#162126]">{resultCount} berita ditemukan</h2>
         </div>
         <p className="text-right font-bold text-[#5f6d72] max-md:text-left">
           <StatusLabel loadState={loadState} activeQuery={activeQuery} />
